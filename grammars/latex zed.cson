@@ -1,0 +1,12 @@
+'fileTypes': [
+  'tex',
+  'zed'
+]
+'firstLineMatch': '^% ?!Z-notation$'
+'name': 'LaTeX Z'
+'patterns': [
+  {
+    'include': 'text.tex.latex'
+  }
+]
+'scopeName': 'text.tex.latex.zed'

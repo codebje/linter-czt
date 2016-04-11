@@ -34,7 +34,7 @@ module.exports =
       fs = require 'fs'
       czt = path.join __dirname, "..", "czt", "czt.jar"
     console.log('providing linter')
-    grammarScopes: ['text.tex.latex']
+    grammarScopes: ['text.tex.latex.zed']
     scope: 'file'
     lintOnFly: false  # Only on save
     lint: (textEditor) =>
