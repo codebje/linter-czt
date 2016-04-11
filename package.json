@@ -1,12 +1,11 @@
 {
   "name": "linter-czt",
   "main": "./lib/linter-czt",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Lint Z specifications with CZT",
   "repository": "https://github.com/codebje/linter-czt",
   "license": "MIT",
-  "keywords": [
-  ],
+  "keywords": [],
   "activationCommands": [],
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
