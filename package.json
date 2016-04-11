@@ -1,0 +1,35 @@
+{
+  "name": "linter-czt",
+  "main": "./lib/linter-czt",
+  "version": "0.1.0",
+  "description": "Lint Z specifications with CZT",
+  "repository": "https://github.com/codebje/linter-czt",
+  "license": "MIT",
+  "keywords": [
+  ],
+  "activationCommands": [],
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "atom-package-deps": "^4.0.1",
+    "atom-linter": "^4.6.0"
+  },
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
+  },
+  "package-deps": [
+    "linter"
+  ],
+  "configSchema": {
+    "javaExecutablePath": {
+      "type": "string",
+      "default": "java",
+      "description": "Path to the java executable. This setting will be used to call java."
+    }
+  }
+}

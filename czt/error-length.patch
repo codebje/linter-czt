@@ -1,0 +1,50 @@
+diff -ur czt-code-631dfc2ed854500da8bb15d16a839de25856f6ad/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorAnn.java czt-code-linter/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorAnn.java
+--- czt-code-631dfc2ed854500da8bb15d16a839de25856f6ad/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorAnn.java	2016-04-08 23:11:17.000000000 +1000
++++ czt-code-linter/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorAnn.java	2016-04-11 23:50:17.000000000 +1000
+@@ -183,17 +183,24 @@
+         locAnn_.getLine().toString() : "unknown";
+       final String colNr = locAnn_.getCol() != null ?
+         locAnn_.getCol().toString() : null;
++      final String sourceLen = locAnn_.getLength() != null ?
++          locAnn_.getLength().toString() : null;
+       final String source = locAnn_.getLoc();
+       if (colNr == null)
+       {
+         localised = getStringFromResourceBundle(ErrorMessage.ERROR_FILE_LINE.toString());
+         args = new String [] {source, lineNr };
+       }
+-      else
++      else if (sourceLen == null)
+       {
+         localised = getStringFromResourceBundle(ErrorMessage.ERROR_FILE_LINE_COL.toString());
+         args = new String [] {source, lineNr, colNr };
+       }
++      else
++      {
++        localised = getStringFromResourceBundle(ErrorMessage.ERROR_FILE_LINE_COL_LENGTH.toString());
++        args = new String [] {source, lineNr, colNr, sourceLen };
++      }
+     }
+     else {
+       localised = getStringFromResourceBundle(ErrorMessage.NO_LOCATION.toString());
+diff -ur czt-code-631dfc2ed854500da8bb15d16a839de25856f6ad/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorMessage.java czt-code-linter/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorMessage.java
+--- czt-code-631dfc2ed854500da8bb15d16a839de25856f6ad/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorMessage.java	2016-04-08 23:11:17.000000000 +1000
++++ czt-code-linter/typechecker/typechecker-z/src/main/java/net/sourceforge/czt/typecheck/z/ErrorMessage.java	2016-04-12 00:11:41.000000000 +1000
+@@ -25,6 +25,7 @@
+ {
+   ERROR_FILE_LINE,
+   ERROR_FILE_LINE_COL,
++  ERROR_FILE_LINE_COL_LENGTH,
+   NO_LOCATION,
+   TYPE_MISMATCH_IN_MEM_PRED,
+   NAME_NOT_REL_OP,
+diff -ur czt-code-631dfc2ed854500da8bb15d16a839de25856f6ad/typechecker/typechecker-z/src/main/resources/net/sourceforge/czt/typecheck/z/ErrorMessage_en.properties czt-code-linter/typechecker/typechecker-z/src/main/resources/net/sourceforge/czt/typecheck/z/ErrorMessage_en.properties
+--- czt-code-631dfc2ed854500da8bb15d16a839de25856f6ad/typechecker/typechecker-z/src/main/resources/net/sourceforge/czt/typecheck/z/ErrorMessage_en.properties	2016-04-08 23:11:17.000000000 +1000
++++ czt-code-linter/typechecker/typechecker-z/src/main/resources/net/sourceforge/czt/typecheck/z/ErrorMessage_en.properties	2016-04-11 23:55:59.000000000 +1000
+@@ -1,5 +1,6 @@
+ ERROR_FILE_LINE=\"{0}\", line {1}
+ ERROR_FILE_LINE_COL=\"{0}\", line {1}, column {2}
++ERROR_FILE_LINE_COL_LENGTH=\"{0}\", line {1}, column {2}, length {3}
+ NO_LOCATION=No location information
+ TYPE_MISMATCH_IN_MEM_PRED=Type mismatch in membership predicate\n\tPredicate: {0}\n\tLHS type: {1}\n\tRHS type: {2}
+ TYPE_MISMATCH_IN_EQUALITY=Type mismatch in equality\n\tPredicate: {0}\n\tLHS type: {1}\n\tRHS type: {2}
