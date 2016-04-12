@@ -7,7 +7,7 @@ Lint Z specifications with the Community Z Tools.
 ![](https://img.shields.io/github/issues/codebje/linter-czt.svg)
 ![](https://img.shields.io/maintenance/yes/2016.svg)
 
-![](screenshot.png)
+![](http://xn--wxa.bje.id.au/images/linter-czt.png)
 
 Included is a binary distribution of the CZT checker, compiled with a patch to include triggering error length information.  The source for CZT is available online at http://czt.sourceforge.net/, and the patch is included in this package's distribution and source.  The license for CZT is included in `COPYING.txt` alongside the distribution.
 
