@@ -1,6 +1,6 @@
 # linter-czt package
 
-Lint Z specifications with the Community Zed Toolkit.
+Lint Z specifications with the Community Z Tools.
 
 Included is a binary distribution of the CZT checker, compiled with a patch to include triggering error length information.  The source for CZT is available online at http://czt.sourceforge.net/, and the patch is included in this package's distribution and source.
 
