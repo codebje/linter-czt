@@ -1,5 +1,3 @@
-The CZT license may be found in czt/ subdirectory.
-
 Copyright (c) 2016 Byron Ellacott
 
 Permission is hereby granted, free of charge, to any person obtaining
