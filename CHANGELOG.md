@@ -1,3 +1,6 @@
+## 0.4.3 - Understanding APM
+- Doc changes, mostly
+
 ## 0.2.0 - Z grammar
 * No longer runs for all LaTeX files
 * Now looks for '% !Z-notation' first line
