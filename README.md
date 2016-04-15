@@ -16,3 +16,6 @@ Only Z syntax is currently supported, and a working install of Java 8 must be av
 To enable this linter, either name your file with a 'zed' extension, put '% !Z-notation' as the first line in your 'tex' file, or select the 'LaTeX Z' grammar from the grammar list.
 
 I recommend the use of [latextools] and [pdf-view] for editing LaTeX documents, including Z specifications.
+
+[latextools]: https://atom.io/packages/latextools
+[pdf-view]: https://atom.io/packages/pdf-view
