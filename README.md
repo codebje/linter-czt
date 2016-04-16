@@ -13,9 +13,13 @@ Included is a binary distribution of the CZT checker, compiled with a patch to i
 
 Only Z syntax is currently supported, and a working install of Java 8 must be available.
 
-To enable this linter, either name your file with a 'zed' extension, put '% !Z-notation' as the first line in your 'tex' file, or select the 'LaTeX Z' grammar from the grammar list.
+The linter will detect any of the ISO standard Z LaTeX environments in any 
+LaTeX files, and enable CZT linting automatically.  You can control the Z 
+dialect used either by setting the default dialect in the package's settings, 
+or by putting '% !Z-notation: <dialect>' as the first line in your file.
 
-I recommend the use of [latextools] and [pdf-view] for editing LaTeX documents, including Z specifications.
+I recommend the use of [latextools] and [pdf-view] for editing LaTeX documents, 
+including Z specifications.
 
 [latextools]: https://atom.io/packages/latextools
 [pdf-view]: https://atom.io/packages/pdf-view
