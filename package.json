@@ -1,7 +1,7 @@
 {
   "name": "linter-czt",
   "main": "./lib/linter-czt",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "Lint Z specifications with CZT",
   "repository": "https://github.com/codebje/linter-czt",
   "license": "MIT",
@@ -33,7 +33,14 @@
     "defaultDialect": {
       "type": "string",
       "default": "oz",
-      "enum": ["z", "oz", "circus", "zeves", "zpatt", "ozpatt"],
+      "enum": [
+        "z",
+        "oz",
+        "circus",
+        "zeves",
+        "zpatt",
+        "ozpatt"
+      ],
       "description": "The default Z dialect to use, if none is specified in the file."
     }
   }
