@@ -18,6 +18,10 @@ module.exports =
         (newValue) =>
           @javaExecutablePath = newValue.trim()
     )
+    @subscriptions.add(
+      atom.config.observe 'linter-czt.defaultDialect',
+        (newValue) => @defaultDialect = newValue.trim()
+    )
 
   deactivate: ->
     @subscriptions.dispose()
@@ -34,16 +38,34 @@ module.exports =
       fs = require 'fs'
       czt = path.join __dirname, "..", "czt", "czt.jar"
     console.log('providing linter')
-    grammarScopes: ['text.tex.latex.zed']
+    grammarScopes: ['text.tex.latex']
     scope: 'file'
     lintOnFly: false  # Only on save
     lint: (textEditor) =>
+      mode = @modeLine(textEditor)
+      if !@detectZed(textEditor)
+        return []
       filePath = textEditor.getPath()
-      args = ['-jar', czt, filePath]
+      args = ['-jar', czt, '-d', mode, filePath]
       helpers.exec(@javaExecutablePath, args, {stream: undefined})
         .then (val) =>
-          console.log('executed', args)
           @parse(val, textEditor)
+
+  modeLine: (textEditor) ->
+    mode = @defaultDialect
+    modeLine = textEditor.lineTextForBufferRow(0)
+    rModeRex = /^% ?!Z-notation: ?(z|oz|circus|zeves|zpatt|ozpatt)?$/
+    if modeLine.match rModeRex
+      mode = modeLine.match(rModeRex)[1]
+    return mode
+
+  # Look for \begin{(schema|zed|axdef|gendef|theorem)}
+  detectZed: (textEditor) ->
+    detected = false
+    textEditor.scan /\\begin{(schema|zed|axdef|gendef|theorem)}/, (obj) =>
+        detected = true
+        obj.stop()
+    return detected
 
   parse: (output, textEditor) ->
     # Parse any stderr failures first

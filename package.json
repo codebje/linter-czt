@@ -29,6 +29,12 @@
       "type": "string",
       "default": "java",
       "description": "Path to the java executable. This setting will be used to call java."
+    },
+    "defaultDialect": {
+      "type": "string",
+      "default": "oz",
+      "enum": ["z", "oz", "circus", "zeves", "zpatt", "ozpatt"],
+      "description": "The default Z dialect to use, if none is specified in the file."
     }
   }
 }

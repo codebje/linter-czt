@@ -1,3 +1,8 @@
+## 0.5.0 - Auto-detect Z
+- The mode line is now only necessary to set a per-file dialect
+- Any LaTeX file with Z environments should auto-lint
+- Added a configuration option for default CZT dialect
+
 ## 0.4.3 - Understanding APM
 - Doc changes, mostly
 
