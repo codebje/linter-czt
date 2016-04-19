@@ -1,3 +1,6 @@
+## 0.6.0 - Transitive dependency change
+- `atom-linter` changed to use `sb-exec`, fix resulting bug here
+
 ## 0.5.0 - Auto-detect Z
 - The mode line is now only necessary to set a per-file dialect
 - Any LaTeX file with Z environments should auto-lint

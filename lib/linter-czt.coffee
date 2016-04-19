@@ -47,7 +47,7 @@ module.exports =
         return []
       filePath = textEditor.getPath()
       args = ['-jar', czt, '-d', mode, filePath]
-      helpers.exec(@javaExecutablePath, args, {stream: undefined})
+      helpers.exec(@javaExecutablePath, args, {stream: 'both'})
         .then (val) =>
           @parse(val, textEditor)
 
