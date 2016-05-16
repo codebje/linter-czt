@@ -22,7 +22,8 @@
     }
   },
   "package-deps": [
-    "linter"
+    "linter",
+    "language-latex"
   ],
   "configSchema": {
     "javaExecutablePath": {

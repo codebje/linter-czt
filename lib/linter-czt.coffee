@@ -9,7 +9,6 @@ czt = null
 
 module.exports =
   activate: (state) ->
-    console.log("Enabled")
     @state = if state then state or {}
     require('atom-package-deps').install('linter-czt')
     @subscriptions = new CompositeDisposable
@@ -37,7 +36,6 @@ module.exports =
       #voucher = require 'voucher'
       fs = require 'fs'
       czt = path.join __dirname, "..", "czt", "czt.jar"
-    console.log('providing linter')
     grammarScopes: ['text.tex.latex']
     scope: 'file'
     lintOnFly: false  # Only on save
@@ -69,31 +67,19 @@ module.exports =
 
   parse: (output, textEditor) ->
     # Parse any stderr failures first
-    rWarnings  = /^WARNING: (.*)$/
-    rSevere    = /^SEVERE: (.*)$/
-    rException = /^Exception in .*: (.*)$/
+    rFailure =/^(WARNING: |SEVERE: |)line (\d+) column (\d+) dialect .*? in ".*": (.*)$/
     messages = []
     for line in output.stderr.split /\r?\n/
-      if line.match rWarnings
-        [message] = line.match(rWarnings)
+      if line.match rFailure
+        [kind, line, col, message] = line.match(rFailure)[1..4]
         messages.push
-          type: "warning"
+          type: if kind == "WARNING: " then "warning" else "error"
           text: message
           filePath: textEditor.getPath()
-      if line.match rSevere
-        [message] = line.match(rSevere)
-        messages.push
-          type: "error"
-          text: message
-          filePath: textEditor.getPath()
-      if line.match rException
-        [message] = line.match(rException)
-        messages.push
-          type: "error"
-          text: message
-          filePath: textEditor.getPath()
+          range: [[line*1,col*1], [line*1,col*1]]
 
     rMessage = /^(ERROR|WARNING) (.*?): (.*)$/
+    rMoreInfo = /^\t(.*)$/
     for line in output.stdout.split /\r?\n/
       if line.match(rMessage)
         [typ, loc, message] = line.match(rMessage)[1..3]
@@ -102,12 +88,26 @@ module.exports =
           text: message
           filePath: textEditor.getPath()
           range: @getLocation(loc)
+      if line.match(rFailure)
+        [kind, line, col, message] = line.match(rFailure)[1..4]
+        messages.push
+          type: if kind == "SEVERE: " then "error" else "warning"
+          text: message
+          filePath: textEditor.getPath()
+          range: [[line*1,col*1], [line*1,col*1]]
+      if line.match(rMoreInfo)
+        [message] = line.match(rMoreInfo)
+        m = messages.pop()
+        if m?
+          m.text = m.text + "\n" + message
+          messages.push(m)
     return messages
 
   getLocation: (locString) ->
     rLineOnly = /^".*", line (\d+)$/
     rLineCol  = /^".*", line (\d+), column (\d+)$/
     rFullInfo = /^".*", line (\d+), column (\d+), length (\d+)$/
+    rFlipped  = /^line (\d+) column (\d+) dialect .*? in ".*"$/
     if locString.match rLineOnly
       lineNo = locString.match(rLineOnly)[1]
       return [[lineNo*1,0], [lineNo*1,0]]
@@ -117,4 +117,7 @@ module.exports =
     if locString.match rFullInfo
       [lineNo, colNo, mLength] = locString.match(rFullInfo)[1..3]
       return [[lineNo*1, colNo*1], [lineNo*1, colNo*1 + mLength*1]]
+    if locString.match rFlipped
+      [lineNo, colNo] = locString.match(rFlipped)[1..2]
+      return [[lineNo*1, colNo*1], [lineNo*1, colNo*1]]
     return [[0,0],[0,0]]

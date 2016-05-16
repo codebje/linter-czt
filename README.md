@@ -19,7 +19,9 @@ dialect used either by setting the default dialect in the package settings,
 or by putting `% !Z-notation: <dialect>` as the first line in your file.  The preset default dialect is `oz`.
 
 I recommend the use of [latextools] and [pdf-view] for editing LaTeX documents,
-including Z specifications.
+including Z specifications.  Without the [language-latex] extension installed,
+this linter will not activate.
 
 [latextools]: https://atom.io/packages/latextools
 [pdf-view]: https://atom.io/packages/pdf-view
+[language-latex]: https://atom.io/packages/language-latex

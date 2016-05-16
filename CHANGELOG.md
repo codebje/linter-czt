@@ -1,3 +1,8 @@
+## 0.7.0 - Better error message detection
+- Syntax errors and warnings are now reported properly
+- `language-latex` is now an Atom dependency
+- fixes #1 by recognising continuation lines
+
 ## 0.6.0 - Transitive dependency change
 - `atom-linter` changed to use `sb-exec`, fix resulting bug here
 
